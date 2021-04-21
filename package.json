@@ -12,6 +12,7 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "@vercel/node": "^1.9.1",
+    "axios": "^0.21.1",
     "date-fns": "^2.21.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
