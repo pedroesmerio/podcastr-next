@@ -1,72 +1,116 @@
 import { GetStaticProps } from 'next';
 import { api } from '../services/api';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+import Image from 'next/image';
+import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
+import Link from 'next/link';
+
+import styles from './Home.module.scss';
+import { ReactNode } from 'react';
+
+interface File {
+  url: string;
+  duration: number;
+  durationAsString: string;
+}
 
 interface Episode {
+  durationAsString: ReactNode;
   id: string;
   title: string;
   members: string;
+  publishedAt: string;
   published_at: string;
   thumbnail: string;
-  description: string;
-  file: Array<{
-    url: string;
-    type: string;
-    duration: number;
-  }>;
+  file: File[];
 }
 
 interface HomeProps {
-  episodes: Episode[];
+  latestEpisodes: Episode[];
+  allEpisodes: Episode[];
 }
 
-//-------------------SPA---------------------
-//import { useEffect } from 'react';
-
-//export default function Home() {
-//useEffect(() => {
-//fetch('http://localhost:3333/episodes')
-//.then((res) => res.json())
-//.then((data) => console.log(data));
-//}, []);
-
-//return (
-//<>
-//<h1>Simple Home</h1>
-//</>
-//);
-//}
-
-//-------------------SSR---------------------
-//export default function Home(props) {
-//console.log(props.episodes);
-
-//return (
-//<>
-//<h1>Simple Home</h1>
-//<p>{JSON.stringify(props.episodes)}</p>
-//</>
-//);
-//}
-
-//export async function getServerSideProps() {
-//const res = await fetch('http://localhost:3333/episodes');
-//const data = await res.json();
-//return {
-//props: {
-//episodes: data,
-//},
-//};
-//}
-
 //-------------------SSG---------------------
-export default function Home(props: HomeProps) {
-  console.log(props.episodes);
-
+export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
   return (
-    <>
-      <h1>Simple Home</h1>
-      <p>{JSON.stringify(props.episodes)}</p>
-    </>
+    <div className={styles.homepage}>
+      <section className={styles.latestEpisodes}>
+        <h2>Últimos Lançamentos</h2>
+        <ul>
+          {latestEpisodes.map((episode) => {
+            return (
+              <li key={episode.id}>
+                <div className={styles.episodeDetails}>
+                  <Image
+                    width={192}
+                    height={192}
+                    objectFit="cover"
+                    src={episode.thumbnail}
+                    alt={episode.title}
+                  />
+                  <Link href={`/episode/${episode.id}`}>
+                    <a>{episode.title}</a>
+                  </Link>
+                  <p>{episode.members}</p>
+                  <span>{episode.publishedAt}</span>
+                  <span>{episode.durationAsString}</span>
+                </div>
+
+                <button type="button">
+                  <img src="/play-green.svg" alt="Tocar episódio" />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+      <section className={styles.allEpisodes}>
+        <h2>Todos Episódios</h2>
+        <table cellSpacing={0}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Podcast</th>
+              <th>Integrantes</th>
+              <th>Data</th>
+              <th>duração</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {allEpisodes.map((episode) => {
+              return (
+                <tr key={episode.id}>
+                  <td style={{ width: 72 }}>
+                    <Image
+                      width={120}
+                      height={120}
+                      src={episode.thumbnail}
+                      alt={episode.title}
+                      objectFit="cover"
+                    />
+                  </td>
+                  <td>
+                    <Link href={`/episode/${episode.id}`}>
+                      <a>{episode.title}</a>
+                    </Link>
+                  </td>
+                  <td>{episode.members}</td>
+                  <td>{episode.publishedAt}</td>
+                  <td>{episode.durationAsString}</td>
+                  <td>
+                    <button type="button">
+                      <img src="/play-green.svg" alt="Tocar episódio" />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </section>
+    </div>
   );
 }
 
@@ -79,9 +123,31 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   });
 
+  //Formatação dos dados
+  const episodes = data.map((episode: Episode) => {
+    return {
+      id: episode.id,
+      title: episode.title,
+      thumbnail: episode.thumbnail,
+      members: episode.members,
+      publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {
+        locale: ptBR,
+      }),
+      duration: Number(episode.file.duration),
+      durationAsString: convertDurationToTimeString(
+        Number(episode.file.duration)
+      ), //recebe uma função externa que formata o dado recebido da API, e converte para um número
+      url: episode.file.url,
+    };
+  });
+
+  const latestEpisodes = episodes.slice(0, 2);
+  const allEpisodes = episodes.slice(2, episodes.length);
+
   return {
     props: {
-      episodes: data,
+      latestEpisodes,
+      allEpisodes,
     },
     revalidate: 60 * 60 * 8,
   };
