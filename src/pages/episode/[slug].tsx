@@ -9,6 +9,7 @@ import Image from 'next/image';
 import styles from './episode.module.scss';
 import { useContext } from 'react';
 import { PlayerContext } from '../../contexts/PlayerContexts';
+import Head from 'next/head';
 
 interface Episode {
   id: string;
@@ -32,6 +33,9 @@ export default function Episode({ episode }: EpisodeProps) {
 
   return (
     <div className={styles.episode}>
+      <Head>
+        <title>{episode.title} | Podcastr</title>
+      </Head>
       <div className={styles.thumbnailContainer}>
         <Link href="/">
           <button type="button">

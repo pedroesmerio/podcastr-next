@@ -9,6 +9,7 @@ import Link from 'next/link';
 import styles from './Home.module.scss';
 import { useContext } from 'react';
 import { PlayerContext } from '../contexts/PlayerContexts';
+import Head from 'next/head';
 
 type Episode = {
   id: string;
@@ -35,6 +36,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title> Home | Podcastr</title>
+      </Head>
       <section className={styles.latestEpisodes}>
         <h2>Últimos Lançamentos</h2>
         <ul>
