@@ -11,21 +11,22 @@ import { useContext } from 'react';
 import { PlayerContext } from '../contexts/PlayerContexts';
 import Head from 'next/head';
 
-type Episode = {
+type episode = {
   id: string;
   title: string;
-  members: string;
-  publishedAt: string;
-  published_at: string;
   thumbnail: string;
-  url: string;
-  duration: number;
+  members: string;
+  published_at: string;
+  publishedAt: string;
   durationAsString: string;
+  duration: number;
+  url: string;
+  file: { duration: number; url: string };
 };
 
 type HomeProps = {
-  latestEpisodes: Episode[];
-  allEpisodes: Episode[];
+  latestEpisodes: episode[];
+  allEpisodes: episode[];
 };
 
 //-------------------SSG---------------------
@@ -137,7 +138,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   //Formatação dos dados
-  const episodes = data.map((episode: Episode) => {
+  const episodes = data.map((episode: episode) => {
     return {
       id: episode.id,
       title: episode.title,

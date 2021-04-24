@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "json-server server.json -w -d 350 -p 3333"
+    "server": "json-server db.json -w -d 350 -p 3333"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.17.0",
