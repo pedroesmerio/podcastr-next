@@ -138,7 +138,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   //Formatação dos dados
-  const episodes = data.map((episode: episode) => {
+  const episodes = data.episodes.map((episode: episode) => {
     return {
       id: episode.id,
       title: episode.title,
