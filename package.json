@@ -2,6 +2,7 @@
   "name": "podcastr-next",
   "version": "1.1.0",
   "private": true,
+  "portfolio": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
