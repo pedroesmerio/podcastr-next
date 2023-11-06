@@ -12,10 +12,22 @@
   },
   "headerImg": "https://raw.githubusercontent.com/pedroesmerio/podcastr-next/main/public/header-image.png",
   "tecnologies": [
-    "Ts",
-    "Node.js",
-    "Sass",
-    "Next.js"
+    {
+      "name": "Ts",
+      "color": "blue"
+    },
+    {
+      "name": "Node.js",
+      "color": "verde"
+    },
+    {
+      "name": "Sass",
+      "color": "pink"
+    },
+    {
+      "name": "Next.js",
+      "color": "gray"
+    }
   ],
   "scripts": {
     "dev": "next dev",
