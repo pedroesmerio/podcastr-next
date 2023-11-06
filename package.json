@@ -6,6 +6,7 @@
   "description": "Este projeto foi muito interessante de desenvolver, pois para o desenvolvimento do player de áudio, utilizamos a API do HTML5 para manipular o áudio sendo tocado pelo usuário, assim como os eventos e estados do player. Além disso, foi possível aprender mais sobre o Next.js, que é um framework React que permite a criação de aplicações web com SSR (Server Side Rendering).",
   "repository": {"url": "https://github.com/pedroesmerio/podcastr-next"},
   "figma": {"url": "https://www.figma.com/file/JutFuztkmx7zJIoSa4UFSC/Podcastr?type=design&node-id=160%3A2761&mode=design&t=KIaDQfW6iczRulvd-1"},
+  "headerImg": "https://podcastr-next-psi.vercel.app/header-img.png",
   "tecnologies": ["Ts", "Node.js", "Sass", "Next.js"],
   "scripts": {
     "dev": "next dev",
