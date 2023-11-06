@@ -14,19 +14,23 @@
   "tecnologies": [
     {
       "name": "Ts",
-      "color": "blue"
+      "color": "ts"
     },
     {
       "name": "Node.js",
-      "color": "verde"
+      "color": "nodejs"
+    },
+    {
+      "name": "Css",
+      "color": "css"
     },
     {
       "name": "Sass",
-      "color": "pink"
+      "color": "sass"
     },
     {
       "name": "Next.js",
-      "color": "gray"
+      "color": "nextjs"
     }
   ],
   "scripts": {
