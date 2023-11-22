@@ -14,23 +14,23 @@
   "tecnologies": [
     {
       "name": "Ts",
-      "color": "ts"
+      "color": "bg-ts"
     },
     {
       "name": "Node.js",
-      "color": "nodejs"
+      "color": "bg-nodejs"
     },
     {
       "name": "Css",
-      "color": "css"
+      "color": "bg-css"
     },
     {
       "name": "Sass",
-      "color": "sass"
+      "color": "bg-sass"
     },
     {
       "name": "Next.js",
-      "color": "nextjs"
+      "color": "bg-nextjs"
     }
   ],
   "scripts": {
